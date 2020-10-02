@@ -113,7 +113,7 @@ func resolveSubnet(prefixBits int) (netmask [4]int, err error) {
 	} else if pb > 24 && pb <= 32 {
 		netmask = [4]int{255, 255, 255, sn}
 	} else {
-		err = errors.New(fmt.Sprintf("could not find appropriate subnet for", pb))
+		err = errors.New(fmt.Sprintf("could not find appropriate subnet for %d", pb))
 	}
 	return
 
