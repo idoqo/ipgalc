@@ -8,16 +8,6 @@ import (
 	"github.com/idoqo/ipgalc/api"
 )
 
-// IPAddr is a generic struct that houses info about a given IPv4 address
-type IPAddr struct {
-	ip        string
-	octets    [4]int
-	bin       string
-	binOctets [4]string
-
-	err error
-}
-
 var ip string
 var prefix int
 
@@ -38,7 +28,9 @@ func main() {
 
 	broadcast := subnet.BroadcastID()
 	networkID := subnet.NetworkID()
+	hostSize := subnet.HostSize()
 
 	fmt.Println("Broadcast IP: ", broadcast.Ip)
 	fmt.Println("Network ID: ", networkID.Ip)
+	fmt.Println("Host Size: ", hostSize)
 }

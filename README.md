@@ -53,7 +53,12 @@ giving broadcast IP as 127.0.0.255.
 ### Group Size
 // todo :/
 ### Host Size
-// todo :/
+Host size represents the number of hosts possible in the subnet (without regards
+for the Network ID and the Broadcast). Ipgalc resolves it by calculating: `2 ^ (32 - $PrefixBits)` and substracting 2 from the result. The host size for the above example would be:
+```
+total = 2 ^ (32 - 24) // 256
+hostSize = total - 2 // 254
+```
 
 ## Resources
 - [ipcalc](http://jodies.de/ipcalc): an online IP address calculator.

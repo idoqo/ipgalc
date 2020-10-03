@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -72,6 +73,7 @@ func (sn *Subnet) NetworkID() *IPAddr {
 	return network
 }
 
+// BroadcastID returns an IPAddr value that holds the broadcast ID of the subnet.
 func (sn *Subnet) BroadcastID() *IPAddr {
 	broadcast := &IPAddr{}
 	for i, ipo := range sn.targetIP.Octets {
@@ -80,6 +82,12 @@ func (sn *Subnet) BroadcastID() *IPAddr {
 	}
 	broadcast.Ip = fmt.Sprintf("%d.%d.%d.%d", broadcast.Octets[0], broadcast.Octets[1], broadcast.Octets[2], broadcast.Octets[3])
 	return broadcast
+}
+
+// HostSize returns the number of valid hosts possible in the subnet
+func (sn *Subnet) HostSize() int {
+	n := float64(32 - sn.targetIP.PrefixBits)
+	return int(math.Pow(2, n)) - 2
 }
 
 func resolveSubnet(prefixBits int) (netmask [4]int, err error) {
