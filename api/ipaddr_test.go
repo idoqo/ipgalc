@@ -14,10 +14,10 @@ func TestToBin(t *testing.T) {
 
 func TestIpToBinary(t *testing.T) {
 	addr := &IPAddr{
-		Ip:         "194.146.135.85",
+		Ip:         "127.0.0.1",
 		PrefixBits: 25,
 	}
-	expected := "11"
+	expected := "01111111.00000000.00000000.00000001"
 	result := addr.ToBinary()
 	if result != expected {
 		t.Errorf("expected %s to yield %s in binary, got %v", addr.Ip, expected, result)
