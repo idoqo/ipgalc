@@ -2,6 +2,7 @@ package api
 
 import (
 	"strconv"
+	"strings"
 )
 
 // IPAddr represents an IPv4 address in ipgalc
@@ -15,12 +16,16 @@ type IPAddr struct {
 
 // ToBinary returns the binary representation of the given IP address
 func (addr *IPAddr) ToBinary() string {
-	if addr.Bin == "" {
-		b := ""
+	if addr.Octets[0] == 0 && addr.Octets[1] == 0 && addr.Octets[2] == 0 && addr.Octets[3] == 0 {
+		addr.Octets, _ = splitIP(addr.Ip)
+	}
+
+	if addr.Bin == "" || len(addr.Bin) < 35 {
+		b := []string{}
 		for _, octet := range addr.Octets {
-			b = b + "." + toBin(octet)
+			b = append(b, toBin(octet))
 		}
-		addr.Bin = b
+		addr.Bin = strings.Join(b, ".")
 	}
 	return addr.Bin
 }
