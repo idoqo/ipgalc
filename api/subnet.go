@@ -19,6 +19,7 @@ type Subnet struct {
 	prefixBits int
 }
 
+// NewSubnet builds a subnet from an IP address and routing prefix
 func NewSubnet(ip string, prefixBits int) (*Subnet, error) {
 	ips, err := splitIP(ip)
 	if err != nil {
